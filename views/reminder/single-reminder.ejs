@@ -61,11 +61,13 @@
           <% } %>
         </h5>
         
-        <a class="btn btn-info" href=<%= "/reminder/" + reminderItem.id + "/edit" %>>Edit</a>
+        <% if (sessionHost == reminderHost) { %>
+          <a class="btn btn-info" href=<%= "/reminder/" + reminderItem.id + "/edit" %>>Edit</a>
 
-        <form class="deleteForm "method="POST" action=<%= "/reminder/delete/" + reminderItem.id %>>
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+          <form class="deleteForm "method="POST" action=<%= "/reminder/delete/" + reminderItem.id %>>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        <% } %>
         
       </li>
     </ul>
