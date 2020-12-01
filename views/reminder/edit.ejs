@@ -1,0 +1,87 @@
+<div class="container">
+  <h1 class="page-header">Edit</h1>
+  <form action=<%= "/reminder/update/" + reminderItem.id %> method="POST">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" name="title" class="form-control" id="titleInput" value="<%= reminderItem.title %>">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"><%= reminderItem.description %></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="subtaks">Subtasks</label>
+      <span>
+        <% if (typeof(reminderItem.subtasks) == 'object') {%>
+          <% for (let i=0; i < reminderItem.subtasks.length; i++) {%>
+            <input class="form-control mt-1" rows="1" name="subtask" value="<%= reminderItem.subtasks[i] %>">
+          <% } %>
+        <% } else { %>
+          <input class="form-control mt-1" rows="1" name="subtask" value="<%= reminderItem.subtasks %>">
+        <% } %>
+        <div id="new-subtask"></div>
+        <button type="button" class="btn btn-outline-success btn-sm float-right" id="btn-subtask">Add task</button>
+      </span>
+        </div>
+
+    <div class="form-group mt-4">
+      <label for="tags">Tags</label>
+        <% if (typeof(reminderItem.tags) == 'object') { %>
+          <% reminderItem.tags.forEach( tag => { %>
+            <input class="form-control col-md-2" name="tags" style="display: inline-block; height: calc(1.3em + .5rem + 2px)" value="<%= tag %>">
+            <% }) %>
+          <% } else if (typeof(reminderItem.tags) == 'string') { %>
+            <input class="form-control col-md-2" name="tags" style="display: inline-block; height: calc(1.3em + .5rem + 2px)" value="<%= reminderItem.tags %>">
+        <% } %>
+        <div id="new-tag" style="display: inline-block;"></div>
+        <button type="button" class="btn btn-outline-warning btn-sm" id="btn-tag">Add tag</button>
+    </div>
+
+    <div class="form-group">
+      <label for="completed">Completed</label>
+      <div class="radio">
+        <label>
+          <% if (reminderItem.completed == true) { %>
+            <input type="radio" name="completed" id="true" value="true" checked="checked">
+          <% } else { %>
+            <input type="radio" name="completed" id="true" value="true">
+          <% } %>
+          True
+        </label>
+      </div>
+
+      <div class="radio">
+        <label>
+          <% if (reminderItem.completed == false) { %>
+            <input type="radio" name="completed" id="false" value="false" checked="checked">
+          <% } else { %>
+            <input type="radio" name="completed" id="false" value="false">
+          <% } %>
+          False
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+  </form>
+</div>
+<script>
+  let add = (btnVar, myDiv, dataToInsert ) => {document.getElementById(btnVar).addEventListener("click", () => {
+    let mydiv = document.getElementById(myDiv);
+    let newcontent = document.createElement('div');
+    newcontent.innerHTML = dataToInsert;
+    
+    while (newcontent.firstChild) {
+      mydiv.appendChild(newcontent.firstChild);
+    }
+  })
+}
+    let taskDiv = `<input class="form-control mt-1 ml-0" type="text" placeholder="Add another subtask" name="subtask">`
+    let tagDiv = `<input type="text" name="tags" 
+    style="border: 1px solid #ced4da;
+      border-radius: .2rem;
+      margin: 2px;
+      height: calc(1.3em + .5rem + 2px);">`
+    add('btn-subtask','new-subtask', taskDiv)
+    add('btn-tag','new-tag', tagDiv)
+</script>

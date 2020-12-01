@@ -1,0 +1,38 @@
+<div class="container">
+    <% if (data[host].friendList == []){ %> 
+        <b> You haven't made friends yet. Add more friends for more fun</b>
+    <% } %>
+
+<fieldset class="app-users">
+    <legend class="app-users__title"><h4>Your friends and other users have joined our Reminder App: </h4></legend>
+    <% for (let i=0; i < userList.length; i++) {%>
+        <div>
+            <% if (data[host].friendList.includes(userList[i])) { %>
+                <input class="checkboxes" type="checkbox" name="" id="<%=userList[i]%>" checked />
+                <span style="text-transform: capitalize"><%=userList[i]%> is your friend</span>
+            <%} else { %>
+                <input class="checkboxes" type="checkbox" name="" id="<%=userList[i]%>"/>
+                <span style="text-transform: capitalize"><%=userList[i]%> is not yet friend</span>
+            <%} %>
+            <i class="check"></i>
+            <%= data[userList[i]].avatar %>
+        </div>
+    <%} %>
+</fieldset>
+</div>
+<script>
+    let checkboxes = document.getElementsByClassName("checkboxes");
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener("change", (event) => {
+        fetch("/friendsChanged", {
+            method: "POST",
+            body: JSON.stringify({
+            username: event.currentTarget.id,
+            }),
+            headers: {
+            "Content-Type": "application/json"   // this bcuz sent json data to service
+            }
+        })
+    })
+    }
+</script>

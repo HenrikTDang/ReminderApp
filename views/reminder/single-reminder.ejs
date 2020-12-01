@@ -1,0 +1,113 @@
+<div class="container">
+  <h1 class="page-header">Reminders</h1>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <h3><strong><%= reminderItem.title %>: </strong></h3>
+
+        <div>
+        <% if (typeof(reminderItem.tags) == 'object') { %>          <%# comment: If there is a list of tags %>
+          <% reminderItem.tags.forEach( tag => { %>
+            <span class="badge badge-warning"><%= tag %></span>
+          <% }) %>
+        <% } else if (typeof(reminderItem.tags) == 'string') { %>          <%# comment: If there is just 1 tag %> 
+          <span class="badge badge-warning"><%= reminderItem.tags %></span>
+        <% } %>
+        <a href="<%= addTagLink %>" class="badge btn-outline-warning" style="border: 1px dashed; font-weight: lighter;"> Add tag</a>
+        </div>
+        <p class="font-weight-light mt-3"><%= reminderItem.description %></p>
+          
+        <% if (typeof(reminderItem.subtasks) == 'object') { %>
+          <!-- <h6 class="card-subtitle mb-2 text-muted mt-2">Subtasks</h6>
+          <% reminderItem.subtasks.forEach( subtask => { %>
+            <div class="form-check" id="checkbox-container">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="default=Check1">
+                <%= subtask %>
+              </label>
+            </div>
+            <% }) %> -->
+
+            <fieldset class="todo-list">
+              <legend class="todo-list__title">Subtasks</legend>
+              <% for (let i=0; i < reminderItem.subtasks.length; i++) {%>
+                <label class="todo-list__label">
+                  <% if (reminderItem.subCompleted[i] == 'not done') { %>
+                    <input class="checkboxes" type="checkbox" name="" id="<%=i%>"/>
+                  <%} else { %>
+                    <input class="checkboxes" type="checkbox" name="" id="<%=i%>" checked />
+                  <%} %>
+                  <i class="check"></i>
+                  <span><%=reminderItem.subtasks[i]%></span>
+                </label>
+              <%} %>
+            </fieldset>
+
+              
+          <% } else if (typeof(reminderItem.subtasks) == 'string' && reminderItem.subtasks !='') { %>
+            <h6 class="card-subtitle mb-2 text-muted mt-2">Subtasks</h6>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1"><%= reminderItem.subtasks %></label>
+            </div>
+          <% } %>
+
+
+          <h5>Completed:
+          <% if (reminderItem.completed == true) { %>
+            <span class="badge badge-success mt-5 mb-4">True</span>
+          <% } else if (reminderItem.completed == false) { %>
+            <span class="badge badge-danger mt-5 mb-4">False</span>
+          <% } %>
+        </h5>
+        
+        <a class="btn btn-info" href=<%= "/reminder/" + reminderItem.id + "/edit" %>>Edit</a>
+
+        <form class="deleteForm "method="POST" action=<%= "/reminder/delete/" + reminderItem.id %>>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        
+      </li>
+    </ul>
+  </div>
+  <script>
+    let checkboxes = document.getElementsByClassName("checkboxes");
+    let reminderId = <%-JSON.stringify(reminderItem.id)%>  //? it still works but why it raise problem
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].addEventListener("change", (event) => {
+        fetch("/checkboxChanged/"+ reminderId, {
+          method: "POST",
+          body: JSON.stringify({
+            id: event.currentTarget.id,
+          }),
+          headers: {
+            "Content-Type": "application/json"   // this bcuz sent json data to service
+          }
+        })
+    })
+  }
+    </script>
+
+  
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {};
+    var $checkbox = $("#checkbox-container :checkbox");
+
+    console.log('checkboxValue ' + checkboxValue['checker']);
+
+    $checkbox.on("change", function() {
+      $checkbox.each(function() {
+        checkboxValue[this.id] = this.checked;
+      });
+      localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+    });
+
+    //on page load
+    $.each(checkboxValue, function(key, value) {
+      if(value){
+        $("#" + key).prop('checked', value);
+      }
+    });
+
+  </script> -->

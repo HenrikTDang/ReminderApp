@@ -1,0 +1,58 @@
+<div class="container">
+  <form action="/reminder" method="POST">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="titleInput" placeholder="Title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Description" name="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="photo">Add photo</label>
+      <input class="form-control form-control-sm" id="photoInput" rows="1" placeholder="Type key word from the name of photo you like" 
+      name="photo">
+    </div>
+    <div class="form-group">
+      <label for="subtaks">Subtasks</label>
+      <span>
+        <input class="form-control" type="text" placeholder="Enter your subtask" name="subtask">
+        <div id="new-subtask"></div>
+        <button type="button" class="btn btn-outline-success btn-sm float-right" id="btn-subtask">Add task</button>
+      </span>
+    </div>
+    <div class="form-group mt-4">
+      <label for="tags">Tags</label>
+      <span>
+      <input class="form-control col-md-2" type="text" style="display: inline-block; height: calc(1.3em + .5rem + 2px)" name="tags">
+      <div id="new-tag" style="display: inline-block;"></div>
+      <button type="button" class="btn btn-outline-info btn-sm" id="btn-tag">Add tag</button>
+    </span>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg mt-5" >Submit</button>
+  </form>
+</div>
+<script>
+
+  let add = (btnVar, myDiv, dataToInsert ) => {document.getElementById(btnVar).addEventListener("click", () => {
+    // document.getElementById("new-subtask").insertAdjacentElement('afterend',dataToInsert)       //https://stackoverflow.com/questions/595808/is-it-possible-to-append-to-innerhtml-without-destroying-descendants-event-list
+    // document.getElementById("new-subtask").appendChild(document.createTexNode(dataToInsert))    // Why these 2 doesn't work? Script in ESJ Not support fuctions?
+    // document.getElementById("new-subtask").innerHTML += dataToInsert    //This will delete previous inner HTML
+    let mydiv = document.getElementById(myDiv);
+    let newcontent = document.createElement('div');
+    newcontent.innerHTML = dataToInsert;
+    
+    while (newcontent.firstChild) {
+      mydiv.appendChild(newcontent.firstChild);
+    }
+  })
+}
+    let taskDiv = `<input class="form-control mt-2" type="text" placeholder="Add another subtask" name="subtask">`
+    let tagDiv = `<input type="text" name="tags" 
+    style="border: 1px solid #ced4da;
+      border-radius: .2rem;
+      margin: 2px;
+      height: calc(1.3em + .5rem + 2px);">`
+    add('btn-subtask','new-subtask', taskDiv)
+    add('btn-tag','new-tag', tagDiv)
+</script>

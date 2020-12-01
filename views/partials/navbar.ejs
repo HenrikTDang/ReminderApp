@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/reminders">Reminder List</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="/reminders">Reminder List</a>
+      <a class="nav-item nav-link" href="/reminder/new">Create</a>
+    </div>
+  </div>
+  <div id="btn-friends" >
+    <form method="GET" action="/friends">
+      <input class="btn btn-info mr-4" value="👨‍👨‍👧‍👧 Friends" type="submit">
+    </form>
+  </div>
+  <div id="btn-logout" >
+    <form method="POST" action="/logout">
+      <input class="btn btn-danger" value="Log out" type="submit">
+    </form>
+  </div>
+  <script>
+    const currentPageUrl=location.href;
+    const menuItem=document.querySelectorAll("div > a");
+    for(let i=0;i<menuItem.length; i++){
+      if(menuItem[i]==currentPageUrl){
+        menuItem[i].className="nav-item nav-link active"
+      }
+    }
+    if (currentPageUrl.includes("/login") || currentPageUrl.includes("/register")){
+      let classList = document.getElementsByClassName("nav-item nav-link")
+      for (let nav of classList){
+        nav.innerHTML =''
+      }
+      document.getElementById("btn-friends").innerHTML = ""
+      document.getElementById("btn-logout").innerHTML = ""
+    }
+  </script>
+</nav>
