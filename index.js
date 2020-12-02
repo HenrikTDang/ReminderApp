@@ -54,7 +54,7 @@ app.post("/reminder/update/:id", reminderController.update)
 
 app.post("/reminder/delete/:id", reminderController.delete)
 
-app.post("/checkboxChanged/:id", reminderController.listOne)
+app.post("/checkboxChanged/:username&:id", reminderController.listOne)
 
 app.get('/friends', reminderController.friends)   // I already hide navbar at login and signup so no need to check Auth
 app.post('/friendsChanged', reminderController.friends)
