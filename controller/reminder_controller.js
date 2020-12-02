@@ -35,7 +35,8 @@ let remindersController = {
             } else {
               checkboxList[i] = "done"
       } } } }
-      console.log("sessionhost: ", req.user.username);
+      // console.log("sessionhost: ", req.user.username);
+      console.log("reminders: ", req.user.reminders);
       res.render('reminder/single-reminder', { 
         sessionHost: req.user.username,
         reminderHost: database[userToFind].username,
@@ -86,7 +87,8 @@ let remindersController = {
         if (reminder.subCompleted != undefined) {
           // first make the subCompleted same length with subtask list that is before it's filter the empty string
           if (reminder.subCompleted.length <= req.body.subtask.length) {
-            for (let i=0; i< (req.body.subtask.length-reminder.subCompleted.length); i++ ) {
+            let num_add = req.body.subtask.length-reminder.subCompleted.length
+            for (let i=0; i< num_add; i++ ) {
               reminder.subCompleted.push('not done')
             }
           // next, delete conresspoding index with unupdated subtask list
@@ -96,8 +98,11 @@ let remindersController = {
               updatedChecklist.push(reminder.subCompleted[i])
           }  }
           reminder.subCompleted = updatedChecklist
+              
+
       } } }
     });
+    console.log(req.user.reminders);
     res.redirect('/reminder/' + `${req.user.username}&${reminderToFind}`)
   },
 
@@ -139,9 +144,10 @@ const makeDefaultChecklist = (subtaskList => {
   if (typeof(subtaskList) == 'object') {
     let updatedSubtaskList = subtaskList.filter(element => {return element.trim() != ""})
     return updatedSubtaskList.map(item => "not done") 
-  } else if (subtaskList != undefined){    //won't take a subtask have no value
-    if (subtaskList.trim() != ""){     // won't take value is an empty str 
-      return ['not done']    // then it is not a list but just a string make a list with only one element
-  }}})
+  } else if (subtaskList.trim() != ""){   // won't take value is an empty str 
+    return ['not done']    // then it is not a list but just a string make a list with only one element
+  } else {    //won't take a subtask have no value
+    return []
+  }})
 
-module.exports = remindersController;
+  module.exports = remindersController;
