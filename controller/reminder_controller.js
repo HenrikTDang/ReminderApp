@@ -7,6 +7,7 @@ let remindersController = {
     // console.log("hah", database[req.user.username]);
     let friendList = database[req.user.username].friendList
     res.render('reminder/index', {
+        host: req.user.username,
         reminders: req.user.reminders,
         data: database,
         friendList : friendList})
@@ -17,8 +18,9 @@ let remindersController = {
   },
 
   listOne: (req, res) => {
+    let userToFind = req.params.username;
     let reminderToFind = req.params.id;
-    let searchResult = req.user.reminders.find(function (reminder) {
+    let searchResult = database[userToFind].reminders.find(function (reminder) {
       return reminder.id == reminderToFind;
     })
     // Post the checkbox status in database
@@ -33,8 +35,10 @@ let remindersController = {
             } else {
               checkboxList[i] = "done"
       } } } }
-      
+      console.log("sessionhost: ", req.user.username);
       res.render('reminder/single-reminder', { 
+        sessionHost: req.user.username,
+        reminderHost: database[userToFind].username,
         reminderItem: searchResult, 
         addTagLink: `${reminderToFind}/edit`,
         })
@@ -94,7 +98,7 @@ let remindersController = {
           reminder.subCompleted = updatedChecklist
       } } }
     });
-    res.redirect('/reminder/' + reminderToFind)
+    res.redirect('/reminder/' + `${req.user.username}&${reminderToFind}`)
   },
 
   delete: (req, res) => {
@@ -119,7 +123,6 @@ let remindersController = {
     res.render('reminder/friends', {host: host, userList: userList, data: database})
   }
 }
-
 
 
 // Create a function that doesn't take an empty subtask or tag that is left blank into our subtasks/tags list
