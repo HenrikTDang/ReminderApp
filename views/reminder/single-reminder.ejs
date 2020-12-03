@@ -13,7 +13,9 @@
         <% } else if (typeof(reminderItem.tags) == 'string') { %>          <%# comment: If there is just 1 tag %> 
           <span class="badge badge-warning"><%= reminderItem.tags %></span>
         <% } %>
-        <a href="<%= addTagLink %>" class="badge btn-outline-warning" style="border: 1px dashed; font-weight: lighter;"> Add tag</a>
+        <% if (sessionHost == reminderHost) { %>
+          <a href="<%= addTagLink %>" class="badge btn-outline-warning" style="border: 1px dashed; font-weight: lighter;"> Add tag</a>
+        <% } %>
         </div>
         <p class="font-weight-light mt-3"><%= reminderItem.description %></p>
           

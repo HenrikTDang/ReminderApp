@@ -3,46 +3,52 @@ let Database = {
         username: 'cindy',
         email: 'cindy@yahoo.com',
         password:'',
-        avatar: 'public/images/p3_single.PNG',
         friendList: ['john'],
         reminders: [{id: 1, title: "abc", description: "abcabc", completed: false}],
     },
     alex: {
         username: 'alex',
         password: "",
-        avatar: 'public/images/p3_single.PNG',
         friendList: [],
         reminders: [{id: 1, title: "bd partty", description: "trtabcabc", completed: false}],
     }, 
-    john: {
-        username: 'john',
-        password: "",
-        friendList: [],
-        reminders: [{id: 1, title: "Familiy dinner", description: "abcabc", completed: false}],
+    seb: {
+        username: 'seb',
+        password: "abc",
+        friendList: ['henrik'],
+        reminders: 
+            [   {id: 1, title: "Familiy dinner", description: "abcabc", completed: false},
+                {
+                id: 2,
+                title: 'Review for finals',
+                description: 'Study hard to get a flying color in the finals exams hehe',
+                completed: false,
+                subtasks: [ 'Study webdev', 'Review for Math', 'Finish all projects', 'Do mock test' ],
+                subCompleted: ['not done','not done','done','not done'], 
+                tags: [ 'school', 'finals' ],
+                }
+            ],
     }, 
+    henrik: {
+        username: 'henrik',
+        email: 'henrikt.dang@gmail.com',
+        password: 'a',
+        avatar: '',
+        friendList: ['cindy', 'alex', 'seb'],
+        reminders: 
+            [
+                {
+                id: 1,
+                title: 'Snowboard',
+                description: 'go to whistler and playing with snow',
+                completed: false,
+                subtasks: [ 'buy goggle', 'buy helmet', 'buy socks' ],
+                subCompleted: ['not done', 'not done','not done'],
+                tags: [ 'friends', 'winter', 'snowboarding' ],
+                },
+            ]
+    }
 }
 
 module.exports = Database;
 
-// {
-//     henrik@gmail.com: {
-//         username: 'henrik',
-//         email: 'henrikt.dang@gmail.com',
-//         password: 'a',
-//         avatar: [url]
-//         friendList: [cindy, alex,...]
-//         reminders: 
-//             [
-//                 {
-//                 id: 1,
-//                 title: 'Snowboard',
-//                 description: 'go to whistler and playing with snow',
-//                 completed: false,
-//                 subtasks: [ 'buy goggle', 'buy helmet', 'buy socks' ],
-//                 tags: [ 'friends', 'winter', 'snowboarding' ],
-//                 subCompleted: ['false', 'false','false']
-
-//                 }
-//             ]
-//     }
-// }
