@@ -222,3 +222,17 @@ footer.footer {
           transform-origin: left;
 }
 
+#friends-container{
+  align-self: center;
+  background-color: #7aacd4;
+  display: flex;
+  max-width: 50rem;
+  padding: 5%;
+  margin-top: 5rem; 
+}
+
+.app-users{
+  align-self: center;
+  padding: 5%;
+}
+
