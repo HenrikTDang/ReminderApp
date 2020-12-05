@@ -37,10 +37,9 @@ let authController = {
 
   registerSubmit: (req, res) => {
     // implement
-    // TODO: check if user already exits in database
     console.log('register submit: ', req.body)
     if (req.body.password != req.body.password_cf) {
-      let alert = "Password don't match!!! Please enter again"            // TODO https://stackoverflow.com/questions/23160743/how-to-send-flash-messages-in-express-4-0
+      let alert = "Passwords don't match!!! Please enter again"            // TODO https://stackoverflow.com/questions/23160743/how-to-send-flash-messages-in-express-4-0
       res.render('auth/register', {email: req.body.email, alert_msg: alert})
     }
     if (req.body.username && req.body.password) {
