@@ -229,10 +229,11 @@ footer.footer {
   max-width: 50rem;
   padding: 5%;
   margin-top: 5rem; 
+  border-radius: 10px;
 }
 
 .app-users{
-  align-self: center;
+ align-self: center;
   padding: 5%;
 }
 

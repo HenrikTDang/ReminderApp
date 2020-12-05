@@ -4,13 +4,14 @@ let Database = {
         email: 'cindy@yahoo.com',
         password:'',
         friendList: ['john'],
-        reminders: [{id: 1, title: "abc", description: "abcabc", completed: false}],
+        reminders: [{id: 1, title: "abc", description: "abcabc", completed: false, subCompleted: ['not done']}],
     },
     alex: {
         username: 'alex',
         password: "",
         friendList: [],
-        reminders: [{id: 1, title: "bd partty", description: "trtabcabc", completed: false}],
+        reminders: [{id: 1, title: "bd partty", description: "trtabcabc", completed: false, subCompleted: ['not done']}],
+        
     }, 
     seb: {
         username: 'seb',

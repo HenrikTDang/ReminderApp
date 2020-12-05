@@ -36,7 +36,6 @@ let remindersController = {
               checkboxList[i] = "done"
       } } } }
       // console.log("sessionhost: ", req.user.username);
-      console.log("reminders: ", req.user.reminders);
       res.render('reminder/single-reminder', { 
         sessionHost: req.user.username,
         reminderHost: database[userToFind].username,
@@ -82,7 +81,6 @@ let remindersController = {
         reminder.completed = req.body.completed == "true"
         reminder.subtasks = checkArray(req.body.subtask)
         reminder.tags = checkArray(req.body.tags)
-
         // Update the subtask completed list (subCompleted) according the new subtasks list
         if (reminder.subCompleted != undefined) {
           // first make the subCompleted same length with subtask list that is before it's filter the empty string
@@ -98,11 +96,8 @@ let remindersController = {
               updatedChecklist.push(reminder.subCompleted[i])
           }  }
           reminder.subCompleted = updatedChecklist
-              
-
       } } }
     });
-    console.log(req.user.reminders);
     res.redirect('/reminder/' + `${req.user.username}&${reminderToFind}`)
   },
 
@@ -114,13 +109,15 @@ let remindersController = {
     req.user.reminders.splice(reminderIndex, 1);
     res.redirect('/reminders');
   },
+
   friends: (req, res) => {
     let host = req.user.username;
     let userList = Object.keys(database).filter(user => {return user != host})
     let userChanged = req.body.username;  // This is the username key of checkbox change from POST method by fetch
     if (userChanged != undefined) {
       if (database[host].friendList.includes(userChanged)) {
-        database[host].friendList.splice(userChanged,1)
+        let _ = database[host].friendList
+        _.splice(_.indexOf(userChanged),1)
       } else {
         database[host].friendList.push(userChanged)
       }
