@@ -7,10 +7,10 @@ Armaan Dhanji
 
 TEAM MEMBERS
 --------------------------
-1. Braedon MacDonald
-2. Sebastian Ptelski
-3. Jaspreet Singh
-4. Henrik T Dang (A01210249)
+1. Henrik T Dang (A01210249)
+2. Braedon MacDonald
+3. Sebastian Ptelski
+
 
 
 CONTROLLER PAGE LIST
